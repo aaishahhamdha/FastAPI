@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: Sample FastAPI Service
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /:
+    get:
+      summary: Root Endpoint
+      description: Returns a welcome message.
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Hello, This is the sample service I just created!
+
+  /greet/{name}:
+    get:
+      summary: Greet User
+      description: Greet the user by name, and optionally by age.
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the user
+          schema:
+            type: string
+        - name: age
+          in: query
+          required: false
+          description: Optional age of the user
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Hello John, you are 25 years old!
+
+  /echo/:
+    post:
+      summary: Echo Data
+      description: Echoes back the JSON payload sent in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: value
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  you_sent:
+                    type: object
+                    example:
+                      key: value
